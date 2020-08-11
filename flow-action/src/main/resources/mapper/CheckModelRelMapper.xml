@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.citic.check.mapper.CheckModelRelMapper">
+
+  <resultMap id="checkModelRel" type="com.citic.check.pojo.CheckModelRel">
+    <result column="TRADE_TYPE" property="tradeType"/>
+    <result column="CHECK_MODEL_ID" property="checkModelId"/>
+    <result column="CHECK_MODEL_ORDER" property="checkModelOrder"/>
+    <result column="IS_CHECKED" property="isChecked"/>
+    <result column="CHECK_MODEL_PATH" property="checkModelPath"/>
+    <result column="CHECK_MODEL_NAME" property="checkModelName"/>
+    <result column="CHECK_MODEL_PARAM_PATH" property="checkModelParamPath"/>
+  </resultMap>
+
+  <select id="selectCheckModelByTradetype" resultMap="checkModelRel">
+        SELECT RELATION.TRADE_TYPE,
+        RELATION.CHECK_MODEL_ID,
+        RELATION.CHECK_MODEL_ORDER,
+        RELATION.IS_CHECKED,
+        MODEL.CHECK_MODEL_PATH,
+        MODEL.CHECK_MODEL_NAME,
+        MODEL.CHECK_MODEL_PARAM_PATH
+        FROM CHECK_MODEL_RELATION RELATION,UNIFIED_CHECK_MODEL MODEL
+        WHERE RELATION.CHECK_MODEL_ID=MODEL.CHECK_MODEL_ID AND RELATION.TRADE_TYPE=#{tradeType};
+  </select>
+</mapper>
