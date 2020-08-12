@@ -171,8 +171,8 @@ public class CheckManager {
             param.setApplNo(applNo);
             param.setCMainRef(cMainRef);
             CheckResponse response = checkInters.get(i).baseCheck(param);
-            responses.add(response);
-            if (response.isRet()) {
+            if (!response.isRet()) {
+                responses.add(response);
                 break;
             }
         }

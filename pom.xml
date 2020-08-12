@@ -5,7 +5,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>flow-base</module>
-    <module>flow-action</module>
+    <module>flow-check</module>
     <module>flow-starter</module>
   </modules>
   <parent>
