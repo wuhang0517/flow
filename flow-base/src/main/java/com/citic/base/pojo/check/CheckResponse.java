@@ -10,7 +10,10 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class CheckResponse extends BaseFlowPojo {
+public class CheckResponse {
+
+    //模块名称
+    private String modelName;
 
     //检查结果
     private boolean ret;
