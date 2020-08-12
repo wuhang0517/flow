@@ -7,6 +7,7 @@ import com.citic.check.inter.CheckInter;
 import com.citic.check.mapper.CheckModelRelMapper;
 import com.citic.check.pojo.CheckModelRel;
 import com.google.common.base.Strings;
+import com.google.protobuf.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,11 @@ public class CheckManager {
 
     private static Map<Class<? extends CheckInter>, CheckRequestParam> paramMap = new HashMap<>();
 
+    //并行检查的线程池大小
     static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
+
+    // 0 串行检查 串行检查时，检查不通过直接返回 1 并行检查，并行检查是需要制定线程池大小
+    static String CHECK_MODEL = "0";
 
     private static CheckModelRelMapper checkModelRelMapper;
 
@@ -47,21 +52,19 @@ public class CheckManager {
     private static void getCheckInter(String tradeType) {
         List<CheckModelRel> checkModelRels = checkModelRelMapper.selectCheckModelByTradetype(tradeType);
         List<CheckInter<CheckRequestParam>> checkInters = new ArrayList<>();
-        for (CheckModelRel checkModelRel : checkModelRels) {
-            if (checkModelRel.getIsChecked() == 0) {
-                CheckInter inter = null;
-                CheckRequestParam param = null;
-                try {
-                    inter = (CheckInter) Class.forName(checkModelRel.getCheckModelPath()).newInstance();
-                    param = (CheckRequestParam) Class.forName(checkModelRel.getCheckModelParamPath()).newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //todo 记录日志
-                    continue;
+        try {
+            for (CheckModelRel checkModelRel : checkModelRels) {
+                if (checkModelRel.getIsChecked() == 0) {
+                    CheckInter inter = (CheckInter) Class.forName(checkModelRel.getCheckModelPath()).newInstance();
+                    CheckRequestParam param = (CheckRequestParam) Class.forName(checkModelRel.getCheckModelParamPath()).newInstance();
+
+                    checkInters.add(inter);
+                    paramMap.put(inter.getClass(), param);
                 }
-                checkInters.add(inter);
-                paramMap.put(inter.getClass(), param);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //todo 记录日志
         }
 
         checkMap.put(tradeType, checkInters);
@@ -88,6 +91,32 @@ public class CheckManager {
             return ApiResponse.fail("-1", "获取检查列表为空");
         }
         List<CheckResponse> responses = new ArrayList<>();
+        switch (CHECK_MODEL) {
+            case "0":
+                responses = serialAction(checkInters, applNo, cMainRef);
+                break;
+            case "1":
+                responses = parallelAction(checkInters, applNo, cMainRef);
+                if (responses.size() < 1) {
+                    return ApiResponse.fail("-1", "获取检查结果失败");
+                }
+                break;
+            default:
+                return ApiResponse.fail("-1", "检查类型不符");
+        }
+        return checkResult(responses);
+    }
+
+    /**
+     * 并行检查
+     *
+     * @param checkInters
+     * @param applNo
+     * @param cMainRef
+     * @return
+     */
+    private static List<CheckResponse> parallelAction(List<CheckInter<CheckRequestParam>> checkInters, String applNo, String cMainRef) {
+        List<CheckResponse> responses = new ArrayList<>();
         List<Future<CheckResponse>> futures = new ArrayList<>();
         int size = checkInters.size();
         for (int i = 0; i < size; i++) {
@@ -103,11 +132,14 @@ public class CheckManager {
         do {
             for (int i = 0; i < futures.size(); i++) {
                 Future<CheckResponse> response = futures.get(i);
-                try {
-                    TimeUnit.MILLISECONDS.sleep(100);
-                } catch (InterruptedException e) {
-                    break;
+                if (!response.isDone()) {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(100);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                 }
+
             }
         } while (executor.getCompletedTaskCount() < futures.size());
         //获取执行结果
@@ -118,10 +150,33 @@ public class CheckManager {
                 responses.add(response.get());
             } catch (Exception e) {
                 e.printStackTrace();
-                return ApiResponse.fail("-1", "获取执行结果失败");
             }
         }
-        return checkResult(responses);
+        return responses;
+    }
+
+    /**
+     * 串行检查
+     *
+     * @param checkInters 需要检查的项
+     * @param applNo 申请编号
+     * @param cMainRef 主流水号
+     * @return
+     */
+    private static List<CheckResponse> serialAction(List<CheckInter<CheckRequestParam>> checkInters, String applNo, String cMainRef) {
+        List<CheckResponse> responses = new ArrayList<>();
+        int size = checkInters.size();
+        for (int i = 0; i < size; i++) {
+            CheckRequestParam param = paramMap.get(checkInters.get(i).getClass());
+            param.setApplNo(applNo);
+            param.setCMainRef(cMainRef);
+            CheckResponse response = checkInters.get(i).baseCheck(param);
+            responses.add(response);
+            if (response.isRet()) {
+                break;
+            }
+        }
+        return responses;
     }
 
     /**
@@ -144,6 +199,9 @@ public class CheckManager {
         return ApiResponse.suc("", "");
     }
 
+    /**
+     * 并行任务执行的线程
+     */
     private static class CheckThread implements Callable<CheckResponse> {
 
         private CheckInter<CheckRequestParam> checkInter;
