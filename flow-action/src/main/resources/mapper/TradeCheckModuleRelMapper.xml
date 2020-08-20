@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.citic.action.mapper.TradeCheckModuleRelMapper">
+  <resultMap id="BaseResultMap" type="com.citic.action.pojo.TradeCheckModuleRel">
+    <id column="REALTION_UNIQE_ID" jdbcType="INTEGER" property="realtionUniqeId" />
+    <result column="TRADE_TYPE" jdbcType="VARCHAR" property="tradeType" />
+    <result column="MODEL_TYPE_NAME" jdbcType="VARCHAR" property="modelTypeName" />
+    <result column="CHECK_MODULE_NAME" jdbcType="VARCHAR" property="checkModuleName" />
+    <result column="CHECK_MODULE_ORDER" jdbcType="VARCHAR" property="checkModuleOrder" />
+    <result column="IS_CHECKED" jdbcType="VARCHAR" property="isChecked" />
+    <result column="RELATION_CREATE_TIME" jdbcType="TIMESTAMP" property="relationCreateTime" />
+    <result column="RELATION_LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="relationLastUpdateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REALTION_UNIQE_ID, TRADE_TYPE, MODEL_TYPE_NAME, CHECK_MODULE_NAME, CHECK_MODULE_ORDER, 
+    IS_CHECKED, RELATION_CREATE_TIME, RELATION_LAST_UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TRADE_CHECK_MODULE_REL
+    where REALTION_UNIQE_ID = #{realtionUniqeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TRADE_CHECK_MODULE_REL
+    where REALTION_UNIQE_ID = #{realtionUniqeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="REALTION_UNIQE_ID" keyProperty="realtionUniqeId" parameterType="com.citic.action.pojo.TradeCheckModuleRel" useGeneratedKeys="true">
+    insert into TRADE_CHECK_MODULE_REL (TRADE_TYPE, MODEL_TYPE_NAME, CHECK_MODULE_NAME, 
+      CHECK_MODULE_ORDER, IS_CHECKED, RELATION_CREATE_TIME, 
+      RELATION_LAST_UPDATE_TIME)
+    values (#{tradeType,jdbcType=VARCHAR}, #{modelTypeName,jdbcType=VARCHAR}, #{checkModuleName,jdbcType=VARCHAR}, 
+      #{checkModuleOrder,jdbcType=VARCHAR}, #{isChecked,jdbcType=VARCHAR}, #{relationCreateTime,jdbcType=TIMESTAMP}, 
+      #{relationLastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="REALTION_UNIQE_ID" keyProperty="realtionUniqeId" parameterType="com.citic.action.pojo.TradeCheckModuleRel" useGeneratedKeys="true">
+    insert into TRADE_CHECK_MODULE_REL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeType != null">
+        TRADE_TYPE,
+      </if>
+      <if test="modelTypeName != null">
+        MODEL_TYPE_NAME,
+      </if>
+      <if test="checkModuleName != null">
+        CHECK_MODULE_NAME,
+      </if>
+      <if test="checkModuleOrder != null">
+        CHECK_MODULE_ORDER,
+      </if>
+      <if test="isChecked != null">
+        IS_CHECKED,
+      </if>
+      <if test="relationCreateTime != null">
+        RELATION_CREATE_TIME,
+      </if>
+      <if test="relationLastUpdateTime != null">
+        RELATION_LAST_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeType != null">
+        #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeName != null">
+        #{modelTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkModuleName != null">
+        #{checkModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkModuleOrder != null">
+        #{checkModuleOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="isChecked != null">
+        #{isChecked,jdbcType=VARCHAR},
+      </if>
+      <if test="relationCreateTime != null">
+        #{relationCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationLastUpdateTime != null">
+        #{relationLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.citic.action.pojo.TradeCheckModuleRel">
+    update TRADE_CHECK_MODULE_REL
+    <set>
+      <if test="tradeType != null">
+        TRADE_TYPE = #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeName != null">
+        MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkModuleName != null">
+        CHECK_MODULE_NAME = #{checkModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkModuleOrder != null">
+        CHECK_MODULE_ORDER = #{checkModuleOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="isChecked != null">
+        IS_CHECKED = #{isChecked,jdbcType=VARCHAR},
+      </if>
+      <if test="relationCreateTime != null">
+        RELATION_CREATE_TIME = #{relationCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationLastUpdateTime != null">
+        RELATION_LAST_UPDATE_TIME = #{relationLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where REALTION_UNIQE_ID = #{realtionUniqeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.citic.action.pojo.TradeCheckModuleRel">
+    update TRADE_CHECK_MODULE_REL
+    set TRADE_TYPE = #{tradeType,jdbcType=VARCHAR},
+      MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR},
+      CHECK_MODULE_NAME = #{checkModuleName,jdbcType=VARCHAR},
+      CHECK_MODULE_ORDER = #{checkModuleOrder,jdbcType=VARCHAR},
+      IS_CHECKED = #{isChecked,jdbcType=VARCHAR},
+      RELATION_CREATE_TIME = #{relationCreateTime,jdbcType=TIMESTAMP},
+      RELATION_LAST_UPDATE_TIME = #{relationLastUpdateTime,jdbcType=TIMESTAMP}
+    where REALTION_UNIQE_ID = #{realtionUniqeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -7,7 +7,6 @@ import com.citic.check.inter.CheckInter;
 import com.citic.check.mapper.CheckModelRelMapper;
 import com.citic.check.pojo.CheckModelRel;
 import com.google.common.base.Strings;
-import com.google.protobuf.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +33,8 @@ public class CheckManager {
     //并行检查的线程池大小
     static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 
-    // 0 串行检查 串行检查时，检查不通过直接返回 1 并行检查，并行检查是需要制定线程池大小
-    static String CHECK_MODEL = "1";
+    // 0 串行检查 串行检查时，检查不通过直接返回 1 并行检查，并行检查时需要制定线程池大小，全部检查通过后返回
+    static String CHECK_MODEL = "0";
 
     private static CheckModelRelMapper checkModelRelMapper;
 
@@ -55,8 +54,8 @@ public class CheckManager {
         try {
             for (CheckModelRel checkModelRel : checkModelRels) {
                 if (checkModelRel.getIsChecked() == 0) {
-                    CheckInter inter = (CheckInter) Class.forName(checkModelRel.getCheckModelPath()).newInstance();
-                    CheckRequestParam param = (CheckRequestParam) Class.forName(checkModelRel.getCheckModelParamPath()).newInstance();
+                    CheckInter inter = (CheckInter) Class.forName(checkModelRel.getCheckModulePath()).newInstance();
+                    CheckRequestParam param = (CheckRequestParam) Class.forName(checkModelRel.getCheckModuleParamPath()).newInstance();
 
                     checkInters.add(inter);
                     paramMap.put(inter.getClass(), param);

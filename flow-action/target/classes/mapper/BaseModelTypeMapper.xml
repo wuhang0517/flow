@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.citic.action.mapper.BaseModelTypeMapper">
+  <resultMap id="BaseResultMap" type="com.citic.action.pojo.BaseModelType">
+    <id column="MODEL_TYPE_ID" jdbcType="INTEGER" property="modelTypeId"/>
+    <result column="MODEL_TYPE_NAME" jdbcType="VARCHAR" property="modelTypeName"/>
+    <result column="MODEL_TYPE_CHN_NAME" jdbcType="VARCHAR" property="modelTypeChnName"/>
+    <result column="MODEL_FUNCTION_ID" jdbcType="VARCHAR" property="modelFunctionId"/>
+    <result column="MODEL_FUNCTION_NAME" jdbcType="VARCHAR" property="modelFunctionName"/>
+    <result column="MODEL_CREATE_TIME" jdbcType="TIMESTAMP" property="modelCreateTime"/>
+    <result column="MODEL_LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="modelLastUpdateTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    MODEL_TYPE_ID, MODEL_TYPE_NAME, MODEL_TYPE_CHN_NAME, MODEL_FUNCTION_ID, MODEL_FUNCTION_NAME, 
+    MODEL_CREATE_TIME, MODEL_LAST_UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from BASE_MODEL_TYPE
+    where MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from BASE_MODEL_TYPE
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from BASE_MODEL_TYPE
+    where MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="MODEL_TYPE_ID" keyProperty="modelTypeId"
+          parameterType="com.citic.action.pojo.BaseModelType" useGeneratedKeys="true">
+    insert into BASE_MODEL_TYPE (MODEL_TYPE_NAME, MODEL_TYPE_CHN_NAME, 
+      MODEL_FUNCTION_ID, MODEL_FUNCTION_NAME, MODEL_CREATE_TIME, 
+      MODEL_LAST_UPDATE_TIME)
+    values (#{modelTypeName,jdbcType=VARCHAR}, #{modelTypeChnName,jdbcType=VARCHAR}, 
+      #{modelFunctionId,jdbcType=VARCHAR}, #{modelFunctionName,jdbcType=VARCHAR}, #{modelCreateTime,jdbcType=TIMESTAMP}, 
+      #{modelLastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="MODEL_TYPE_ID" keyProperty="modelTypeId"
+          parameterType="com.citic.action.pojo.BaseModelType" useGeneratedKeys="true">
+    insert into BASE_MODEL_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modelTypeName != null">
+        MODEL_TYPE_NAME,
+      </if>
+      <if test="modelTypeChnName != null">
+        MODEL_TYPE_CHN_NAME,
+      </if>
+      <if test="modelFunctionId != null">
+        MODEL_FUNCTION_ID,
+      </if>
+      <if test="modelFunctionName != null">
+        MODEL_FUNCTION_NAME,
+      </if>
+      <if test="modelCreateTime != null">
+        MODEL_CREATE_TIME,
+      </if>
+      <if test="modelLastUpdateTime != null">
+        MODEL_LAST_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modelTypeName != null">
+        #{modelTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeChnName != null">
+        #{modelTypeChnName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunctionId != null">
+        #{modelFunctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunctionName != null">
+        #{modelFunctionName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCreateTime != null">
+        #{modelCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modelLastUpdateTime != null">
+        #{modelLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.citic.action.pojo.BaseModelType">
+    update BASE_MODEL_TYPE
+    <set>
+      <if test="modelTypeName != null">
+        MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeChnName != null">
+        MODEL_TYPE_CHN_NAME = #{modelTypeChnName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunctionId != null">
+        MODEL_FUNCTION_ID = #{modelFunctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunctionName != null">
+        MODEL_FUNCTION_NAME = #{modelFunctionName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelCreateTime != null">
+        MODEL_CREATE_TIME = #{modelCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modelLastUpdateTime != null">
+        MODEL_LAST_UPDATE_TIME = #{modelLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.citic.action.pojo.BaseModelType">
+    update BASE_MODEL_TYPE
+    set MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR},
+      MODEL_TYPE_CHN_NAME = #{modelTypeChnName,jdbcType=VARCHAR},
+      MODEL_FUNCTION_ID = #{modelFunctionId,jdbcType=VARCHAR},
+      MODEL_FUNCTION_NAME = #{modelFunctionName,jdbcType=VARCHAR},
+      MODEL_CREATE_TIME = #{modelCreateTime,jdbcType=TIMESTAMP},
+      MODEL_LAST_UPDATE_TIME = #{modelLastUpdateTime,jdbcType=TIMESTAMP}
+    where MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

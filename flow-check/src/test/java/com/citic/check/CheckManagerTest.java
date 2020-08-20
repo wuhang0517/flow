@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @SpringBootTest
@@ -34,5 +35,14 @@ public class CheckManagerTest {
     public void select() {
         List<CheckModelRel> ezshp = checkModelRelMapper.selectCheckModelByTradetype("ezshp");
         System.out.println(ezshp);
+    }
+
+    @Test
+    public void test() {
+        String s = "1234.00";
+        String s1 = "1234.000";
+        BigDecimal bigDecimal = new BigDecimal(s);
+        BigDecimal bigDecimal1 = new BigDecimal(s1);
+        System.out.println(bigDecimal.compareTo(bigDecimal1));
     }
 }

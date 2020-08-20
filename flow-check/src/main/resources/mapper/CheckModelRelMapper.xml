@@ -4,12 +4,12 @@
 
   <resultMap id="checkModelRel" type="com.citic.check.pojo.CheckModelRel">
     <result column="TRADE_TYPE" property="tradeType"/>
-    <result column="CHECK_MODEL_ID" property="checkModelId"/>
-    <result column="CHECK_MODEL_ORDER" property="checkModelOrder"/>
+    <result column="CHECK_MODEL_ID" property="checkModuleId"/>
+    <result column="CHECK_MODEL_ORDER" property="checkModuleOrder"/>
     <result column="IS_CHECKED" property="isChecked"/>
-    <result column="CHECK_MODEL_PATH" property="checkModelPath"/>
-    <result column="CHECK_MODEL_NAME" property="checkModelName"/>
-    <result column="CHECK_MODEL_PARAM_PATH" property="checkModelParamPath"/>
+    <result column="CHECK_MODEL_PATH" property="checkModulePath"/>
+    <result column="CHECK_MODEL_NAME" property="checkModuleName"/>
+    <result column="CHECK_MODEL_PARAM_PATH" property="checkModuleParamPath"/>
   </resultMap>
 
   <select id="selectCheckModelByTradetype" resultMap="checkModelRel">
