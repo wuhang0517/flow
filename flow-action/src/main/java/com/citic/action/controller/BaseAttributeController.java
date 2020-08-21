@@ -52,4 +52,14 @@ public class BaseAttributeController {
         }
         return ApiResponse.fail("-1", "操作失败");
     }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ApiResponse update(@RequestBody BaseAttribute baseAttribute) {
+        int i = baseAttributeService.update(baseAttribute);
+        if (i == 1) {
+            return ApiResponse.suc("0", null);
+        }
+        return ApiResponse.fail("-1", "操作失败");
+    }
 }

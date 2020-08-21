@@ -39,4 +39,9 @@ public class BaseAttributeService {
         return i;
     }
 
+    public int update(BaseAttribute baseAttribute) {
+        int i = baseAttributeMapper.updateByPrimaryKeySelective(baseAttribute);
+        return i;
+    }
+
 }

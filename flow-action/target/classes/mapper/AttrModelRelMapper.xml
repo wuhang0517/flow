@@ -23,6 +23,10 @@
     delete from ATTR_MODEL_REL
     where ATTR_MODEL_REL_ID = #{attrModelRelId,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByModelTypeName" parameterType="java.lang.String">
+    delete from ATTR_MODEL_REL
+    where MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" keyColumn="ATTR_MODEL_REL_ID" keyProperty="attrModelRelId"
           parameterType="com.citic.action.pojo.AttrModelRel" useGeneratedKeys="true">
     insert into ATTR_MODEL_REL (MODEL_TYPE_NAME, ATTRIBUTE_NAME, IS_CANCLE,

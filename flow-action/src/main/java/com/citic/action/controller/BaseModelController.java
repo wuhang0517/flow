@@ -35,10 +35,20 @@ public class BaseModelController {
     }
 
 
-    @PostMapping("/inset")
+    @PostMapping("/insert")
     @ResponseBody
     public ApiResponse insert(@RequestBody ModelAttrRel modelAttrRel) {
         int i = baseModelTypeService.insert(modelAttrRel);
+        if (i == 1) {
+            return ApiResponse.suc("0", null);
+        }
+        return ApiResponse.fail("-1", "操作失败");
+    }
+
+    @GetMapping("/delete")
+    @ResponseBody
+    public ApiResponse deleteBaseAttr(@RequestParam(value = "modelTypeName") String modelTypeName) {
+        int i = baseModelTypeService.delete(modelTypeName);
         if (i == 1) {
             return ApiResponse.suc("0", null);
         }

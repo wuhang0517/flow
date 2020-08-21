@@ -8,6 +8,7 @@
     <module>flow-check</module>
     <module>flow-starter</module>
     <module>flow-action</module>
+    <module>flow-main</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

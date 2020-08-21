@@ -29,6 +29,10 @@
     delete from BASE_MODEL_TYPE
     where MODEL_TYPE_ID = #{modelTypeId,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByModelTypeName" parameterType="java.lang.String">
+    delete from BASE_MODEL_TYPE
+    where MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" keyColumn="MODEL_TYPE_ID" keyProperty="modelTypeId"
           parameterType="com.citic.action.pojo.BaseModelType" useGeneratedKeys="true">
     insert into BASE_MODEL_TYPE (MODEL_TYPE_NAME, MODEL_TYPE_CHN_NAME, 

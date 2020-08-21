@@ -20,4 +20,6 @@ public interface BaseModelTypeMapper {
     int updateByPrimaryKey(BaseModelType record);
 
     List<BaseModelType> selectAll();
+
+    int deleteByModelTypeName(String modelTypeName);
 }
