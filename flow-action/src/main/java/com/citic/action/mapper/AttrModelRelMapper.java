@@ -18,4 +18,6 @@ public interface AttrModelRelMapper {
     int updateByPrimaryKey(AttrModelRel record);
 
     int deleteByModelTypeName(String modelTypeName);
+
+    AttrModelRel selectByModelTypeName(String modelTypeName);
 }

@@ -30,27 +30,12 @@ public interface OureFunctionInter<T extends SysOureVo> {
     ApiResponse receiveOureRequest(T oureVo);
 
     /**
-     * 通过校验服务做的校验。如黑名单筛查等
-     *
-     * @param oureVo
-     * @return
-     */
-    ApiResponse checkByCheckServer(T oureVo);
-
-    /**
      * 准备自动化流程的数据
      *
      * @param prepareParam 自动
      * @return
      */
     ApiResponse<T> prepareAutoOureData(String prepareParam);
-
-    /**
-     * 执行自动化流程
-     *
-     * @param oureVo
-     */
-    void autoOureFlow(T oureVo);
 
 
     /**

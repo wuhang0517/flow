@@ -1,6 +1,7 @@
 package com.citic.action.controller;
 
 import com.citic.action.pojo.BaseModelType;
+import com.citic.action.service.AttrModelRelService;
 import com.citic.action.service.BaseModelTypeService;
 import com.citic.action.vo.ModelAttrRel;
 import com.citic.base.pojo.ApiResponse;
@@ -23,6 +24,9 @@ public class BaseModelController {
 
     @Autowired
     BaseModelTypeService baseModelTypeService;
+
+    @Autowired
+    AttrModelRelService attrModelRelService;
 
     @RequestMapping("/selectAll")
     @ResponseBody
@@ -54,4 +58,5 @@ public class BaseModelController {
         }
         return ApiResponse.fail("-1", "操作失败");
     }
+
 }

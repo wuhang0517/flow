@@ -46,10 +46,10 @@ public class CheckManager {
     /**
      * 获取渠道需要检查的项
      *
-     * @param tradeType 渠道类型
+     * @param applType 渠道类型
      */
-    private static void getCheckInter(String tradeType) {
-        List<CheckModelRel> checkModelRels = checkModelRelMapper.selectCheckModelByTradetype(tradeType);
+    private static void getCheckInter(String applType) {
+        List<CheckModelRel> checkModelRels = checkModelRelMapper.selectCheckModelByTradetype(applType);
         List<CheckInter<CheckRequestParam>> checkInters = new ArrayList<>();
         try {
             for (CheckModelRel checkModelRel : checkModelRels) {
@@ -66,25 +66,25 @@ public class CheckManager {
             //todo 记录日志
         }
 
-        checkMap.put(tradeType, checkInters);
+        checkMap.put(applType, checkInters);
 
     }
 
     /**
      * 对渠道需要检查的项进行检查
      *
-     * @param tradeType 渠道类型
+     * @param applType 渠道类型
      * @param applNo 申请编号
      * @param cMainRef 主流水号
      * @return
      * @throws Exception
      */
-    public static ApiResponse<List<CheckResponse>> check(String tradeType, String applNo, String cMainRef) {
-        List<CheckInter<CheckRequestParam>> checkInters = checkMap.get(tradeType);
+    public static ApiResponse<List<CheckResponse>> check(String applType, String applNo, String cMainRef) {
+        List<CheckInter<CheckRequestParam>> checkInters = checkMap.get(applType);
         //初始化
         if (checkInters == null || checkInters.size() == 0) {
-            getCheckInter(tradeType);
-            checkInters = checkMap.get(tradeType);
+            getCheckInter(applType);
+            checkInters = checkMap.get(applType);
         }
         if (checkInters == null || checkInters.size() < 1) {
             return ApiResponse.fail("-1", "获取检查列表为空");

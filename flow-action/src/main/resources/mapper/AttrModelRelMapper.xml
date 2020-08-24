@@ -19,6 +19,12 @@
     from ATTR_MODEL_REL
     where ATTR_MODEL_REL_ID = #{attrModelRelId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByModelTypeName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from ATTR_MODEL_REL
+    where MODEL_TYPE_NAME = #{modelTypeName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ATTR_MODEL_REL
     where ATTR_MODEL_REL_ID = #{attrModelRelId,jdbcType=VARCHAR}

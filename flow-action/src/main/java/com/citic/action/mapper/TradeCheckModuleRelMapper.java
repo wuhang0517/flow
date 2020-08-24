@@ -1,7 +1,9 @@
 package com.citic.action.mapper;
 
 import com.citic.action.pojo.TradeCheckModuleRel;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface TradeCheckModuleRelMapper {
     int deleteByPrimaryKey(String realtionUniqeId);
 

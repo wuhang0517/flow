@@ -1,7 +1,11 @@
 package com.citic.action.mapper;
 
 import com.citic.action.pojo.TradeAttrRel;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+@Mapper
 public interface TradeAttrRelMapper {
     int deleteByPrimaryKey(String tradeAttrRelId);
 
@@ -14,4 +18,6 @@ public interface TradeAttrRelMapper {
     int updateByPrimaryKeySelective(TradeAttrRel record);
 
     int updateByPrimaryKey(TradeAttrRel record);
+
+    List<TradeAttrRel> selectByTradeType(String tradeType);
 }

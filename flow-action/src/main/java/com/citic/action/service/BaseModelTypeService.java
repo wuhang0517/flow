@@ -65,4 +65,6 @@ public class BaseModelTypeService {
         }
         return 0;
     }
+
+
 }
