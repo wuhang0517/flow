@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <chain name="CommandChain">
+    <!-- 定义的顺序决定执行的顺序 -->
+    <command id="actionFilter" className="com.citic.chain.filter.AutoActionFilter"/>
+    <command id="blacklist" className="com.citic.chain.check.BlackListCheck"/>
+    <command id="inv" className="com.citic.chain.check.InvCheck"/>
+  </chain>
+</catalog>

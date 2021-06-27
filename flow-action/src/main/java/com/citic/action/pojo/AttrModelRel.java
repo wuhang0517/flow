@@ -3,6 +3,8 @@ package com.citic.action.pojo;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -26,4 +28,11 @@ public class AttrModelRel implements Serializable {
     private LocalDateTime relationLastUpdateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public static void main(String[] args) {
+        Map map = new HashMap();
+        System.out.println("P".equals(map.get("sss")));
+        Object b = "P";
+        System.out.println(b.equals("P"));
+    }
 }

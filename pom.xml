@@ -6,9 +6,10 @@
   <modules>
     <module>flow-base</module>
     <module>flow-check</module>
-    <module>flow-starter</module>
     <module>flow-action</module>
     <module>flow-main</module>
+    <module>flow-oure</module>
+    <module>flow-chain</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -59,13 +60,6 @@
         <version>29.0-jre</version>
       </dependency>
 
-      <!--spring boot 测试相关-->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <version>2.3.2.RELEASE</version>
-      </dependency>
-
       <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
       <dependency>
         <groupId>mysql</groupId>
@@ -92,6 +86,21 @@
         <artifactId>spring-boot-starter-web</artifactId>
         <version>2.3.2.RELEASE</version>
       </dependency>
+
+      <!-- https://mvnrepository.com/artifact/commons-chain/commons-chain -->
+      <dependency>
+        <groupId>commons-chain</groupId>
+        <artifactId>commons-chain</artifactId>
+        <version>1.2</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-digester3 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-digester3</artifactId>
+        <version>3.2</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
