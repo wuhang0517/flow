@@ -1,5 +1,8 @@
 package com.citic.oure;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @ClassName TestMain
  * @Description
@@ -10,7 +13,11 @@ package com.citic.oure;
 public class TestMain {
 
     public static void main(String[] args) {
+        String a = "a";
+        Map<String, Object> map = new HashMap<>();
+        map.put("a", "a");
 
+        System.out.println(a.equals(map.get("a")));
     }
 
     /**
@@ -29,6 +36,8 @@ public class TestMain {
          */
 
     }
+
+
 
 
 }

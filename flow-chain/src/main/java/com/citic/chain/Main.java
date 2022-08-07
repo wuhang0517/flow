@@ -3,9 +3,7 @@ package com.citic.chain;
 import com.citic.chain.check.BlackListCheck;
 import com.citic.chain.check.InvCheck;
 import com.citic.chain.filter.AutoActionFilter;
-import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ChainBase;
-import org.apache.commons.chain.impl.ContextBase;
 
 /**
  * @ClassName Main
@@ -25,12 +23,21 @@ public class Main extends ChainBase {
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
-        Context context = new ContextBase();
-        try {
-            main.execute(context);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+        A thread = new A();
+        new Thread(thread).start();
+
+    }
+
+    static class A implements Runnable {
+
+        public A() {
+        }
+
+        @Override
+        public void run() {
+
         }
     }
 }

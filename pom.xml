@@ -10,6 +10,8 @@
     <module>flow-main</module>
     <module>flow-oure</module>
     <module>flow-chain</module>
+    <module>flow-sign</module>
+    <module>flow-inre</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -101,6 +103,13 @@
         <version>3.2</version>
       </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.12.0</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -109,6 +118,9 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>com.citic.action.FlowActionApplcationStarter</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>
